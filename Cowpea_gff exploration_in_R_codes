@@ -1,0 +1,36 @@
+library(rtracklayer)
+gff0 <- import("Vunguiculata_540_v1.2.gene_exons.gff3")
+gff0
+seqnames(gff0)
+table(gff0$type)
+gff1 <- gff0[gff0$type == "mRNA"]
+gff1
+length(unique(gff1$Parent))
+gff0
+seqnames(gff1)
+table(sapply(gff1$Parent,length))
+length(unique(gff1$Name))
+table(sapply(gff1$Name,length))
+gff1$Parent <- unlist(gff1$Parent))
+gff1$Parent <- unlist(gff1$Parent)
+gff1$Name <- unlist(gff1$Name)
+length(unique(gff1$Parent))
+length(unique(gff1$Name))
+head(gff1$Name)
+library(magrittr)
+head(gff1$Name) %>% strsplit(".", fixed =T)
+head(gff1$Name) %>% strsplit(".", fixed =T) %>% sapply(length)
+head(gff1$Name) %>% strsplit(".", fixed =T) %>% sapply(length) %>% table
+gff1$Name %>% strsplit(".", fixed =T) %>% sapply(length) %>% table
+gff1$gene_id <- gff1$Name %>% strsplit(".",fixed = T) %>% sapply(function(x) x [1])
+gff1
+length(unique(gff1$gene_id))
+length(unique(gff1$Name))
+table(table(gff1$gene_id[!duplicated(gff1$Name)]))
+tx2gene <- mcols(gff1)[!duplicated(gff1$Name),c("Name","gene_id")]
+dim(tx2gene)
+head(tx2gene)
+names(tx2gene) <- c("TXNAME","GENEID")
+head(tx2gene)
+write.csv(tx2gene, file = "Cowpea_TXandGENE-exon_ids.csv", row.names = FALSE)
+savehistory("Cowpea_gff-exon_exploration_inR_codes.txt")
