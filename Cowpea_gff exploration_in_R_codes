@@ -17,6 +17,7 @@ gff1$Name <- unlist(gff1$Name)
 length(unique(gff1$Parent))
 length(unique(gff1$Name))
 head(gff1$Name)
+
 library(magrittr)
 head(gff1$Name) %>% strsplit(".", fixed =T)
 head(gff1$Name) %>% strsplit(".", fixed =T) %>% sapply(length)
